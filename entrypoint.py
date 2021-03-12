@@ -62,7 +62,7 @@ def handle(path):
 
     # vdr ファイルを読み込み chapter を作成
     with vdr_path.open() as f:
-        vdr = f.readlines()
+        vdr = f.read()
     chapters = create_chapters(vdr)
 
     # chapter ファイルに UTF-8 with BOM で保存
