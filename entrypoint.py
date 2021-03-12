@@ -49,7 +49,7 @@ def handle(path):
         return
 
     # comskip を実行
-    command = f"{COMSKIP_COMMAND} {path}"
+    command = f"{COMSKIP_COMMAND} {path.as_posix().replace(' ', '\\ ')}"
     print(f"Popen: {command}")
     with Popen(shlex.split(command)) as p:
         p.wait()
