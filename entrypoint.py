@@ -49,9 +49,10 @@ def handle(path):
         return
 
     # comskip を実行
-    command = f"{COMSKIP_COMMAND} {path.as_posix().replace(' ', '\\ ')}"
-    print(f"Popen: {command}")
-    with Popen(shlex.split(command)) as p:
+    commands = shlex.split(COMSKIP_COMMAND)
+    commands.append(str(path.resolve()))
+    print(f"Popen: {commands}")
+    with Popen(commands) as p:
         p.wait()
 
     # txt ファイル, vdr ファイルがないなら失敗と判断
