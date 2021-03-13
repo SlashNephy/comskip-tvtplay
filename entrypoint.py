@@ -1,5 +1,6 @@
 import concurrent.futures
 import os
+import random
 import re
 import shlex
 import time
@@ -15,7 +16,8 @@ COMSKIP_COMMAND = os.getenv("COMSKIP_COMMAND")
 def main():
     while True:
         with concurrent.futures.ProcessPoolExecutor(max_workers=COMSKIP_PROCESSES) as executor:
-            futures = executor.map(handle_wrap, enumerate_paths())
+            paths = list(enumerate_paths())
+            futures = executor.map(handle_wrap, random.sample(paths, k=len(paths)))
             concurrent.futures.wait(futures)
 
         time.sleep(10)
