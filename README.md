@@ -19,7 +19,9 @@ version: '3.8'
 services:
   comskip-tvtplay:
     container_name: comskip-tvtplay
-    image: slashnephy/comskip-all-tvtplay:latest
+    image: slashnephy/comskip-tvtplay:latest
+    # PermissionDenied が出る場合は
+    # user: root
     restart: always
     volumes:
       - /mnt:/mnt
