@@ -9,6 +9,8 @@ SMB などでフォルダを参照し TVTest で再生することで自動 CM �
 チャプターファイルは `<TS ファイル>/chapters` ディレクトリ以下に作成されるようになっています。  
 Comskip の並列数やコマンドラインは `COMSKIP_PROCESSES` および `COMSKIP_COMMAND` で制御できます。
 
+comskip.ini には最低限 `output_vdr=1` が必要です。comskip-tvtplay は生成される .vdr ファイルを使用します。
+
 [![Docker Image Size (tag)](https://img.shields.io/docker/image-size/slashnephy/comskip-tvtplay/latest)](https://hub.docker.com/r/slashnephy/comskip-tvtplay)
 
 `docker-compose.yml`
