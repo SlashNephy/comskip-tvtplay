@@ -18,7 +18,8 @@ def main():
         with concurrent.futures.ProcessPoolExecutor(max_workers=COMSKIP_PROCESSES) as executor:
             paths = list(enumerate_paths())
             futures = executor.map(handle_wrap, random.sample(paths, k=len(paths)))
-            concurrent.futures.wait(futures)
+            if futures:
+                concurrent.futures.wait(futures)
 
         time.sleep(10)
 
