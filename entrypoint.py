@@ -12,6 +12,9 @@ from subprocess import Popen
 MOUNT_POINT = os.getenv("MOUNT_POINT")
 COMSKIP_PROCESSES = int(os.getenv("COMSKIP_PROCESSES"))
 COMSKIP_COMMAND = os.getenv("COMSKIP_COMMAND")
+COMSKIP_IGNORE_NAMES = [re.compile(v) for k, v in os.environ.items() if k.startswith("COMSKIP_IGNORE_NAME")]
+
+re.compile("").match
 
 def main():
     while True:
@@ -24,7 +27,14 @@ def main():
 
 # MOUNT_POINT 以下の m2ts ファイルを列挙
 def enumerate_paths():
-    return Path(MOUNT_POINT).glob("**/*.m2ts")
+    return [
+        path
+        for path in Path(MOUNT_POINT).glob("**/*.m2ts")
+        if not any(
+            regex.match(path.stem)
+            for regex in COMSKIP_IGNORE_NAMES
+        )
+    ]
 
 def handle(path):
     # chapters ディレクトリがないなら作る

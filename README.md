@@ -33,4 +33,7 @@ services:
       COMSKIP_PROCESSES: 4
       # Comskip を起動するコマンドラインを変更したい場合
       # COMSKIP_COMMAND: comskip --ini=/comskip.ini --ts
+      # Comskip をかけたくないファイル名のパターン (複数指定可能)
+      COMSKIP_IGNORE_NAME1: NHK総合
+      COMSKIP_IGNORE_NAME2: NHK教育
 ```
