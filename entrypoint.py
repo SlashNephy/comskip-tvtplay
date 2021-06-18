@@ -16,8 +16,6 @@ COMSKIP_IGNORE_NAMES = [re.compile(v) for k, v in os.environ.items() if k.starts
 COMSKIP_INTERVAL_SEC = int(os.getenv("COMSKIP_INTERVAL_SEC"))
 COMSKIP_CLEANUP = bool(int(os.getenv("COMSKIP_CLEANUP")))
 
-re.compile("").match
-
 def main():
     while True:
         with concurrent.futures.ProcessPoolExecutor(max_workers=COMSKIP_PROCESSES) as executor:
@@ -38,7 +36,7 @@ def enumerate_paths(ext):
         path
         for path in Path(MOUNT_POINT).glob(f"**/*.{ext}")
         if not any(
-            regex.match(path.stem)
+            regex.search(path.stem)
             for regex in COMSKIP_IGNORE_NAMES
         )
     )
