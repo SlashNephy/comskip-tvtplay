@@ -22,8 +22,6 @@ services:
   comskip-tvtplay:
     container_name: comskip-tvtplay
     image: slashnephy/comskip-tvtplay:latest
-    # PermissionDenied が出る場合は
-    # user: root
     restart: always
     volumes:
       - /mnt:/mnt
