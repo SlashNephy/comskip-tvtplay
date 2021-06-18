@@ -36,4 +36,6 @@ services:
       COMSKIP_IGNORE_NAME2: NHK教育
       # Comskip をかけるファイルを検索する間隔 (秒)
       COMSKIP_INTERVAL_SEC: 10
+      # 不要になった .chapter ファイルを削除する
+      COMSKIP_CLEANUP: 1
 ```

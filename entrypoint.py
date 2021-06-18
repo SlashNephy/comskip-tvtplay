@@ -14,28 +14,34 @@ COMSKIP_PROCESSES = int(os.getenv("COMSKIP_PROCESSES"))
 COMSKIP_COMMAND = os.getenv("COMSKIP_COMMAND")
 COMSKIP_IGNORE_NAMES = [re.compile(v) for k, v in os.environ.items() if k.startswith("COMSKIP_IGNORE_NAME")]
 COMSKIP_INTERVAL_SEC = int(os.getenv("COMSKIP_INTERVAL_SEC"))
+COMSKIP_CLEANUP = bool(int(os.getenv("COMSKIP_CLEANUP")))
 
 re.compile("").match
 
 def main():
     while True:
         with concurrent.futures.ProcessPoolExecutor(max_workers=COMSKIP_PROCESSES) as executor:
-            paths = list(enumerate_paths())
-            for _ in executor.map(handle, random.sample(paths, k=len(paths))):
+            m2ts_paths = list(enumerate_paths("m2ts"))
+            for _ in executor.map(handle, random.sample(m2ts_paths, k=len(m2ts_paths))):
                 pass
+
+            if COMSKIP_CLEANUP:
+                chapter_paths = list(enumerate_paths("chapter"))
+                for _ in executor.map(handle_cleanup, random.sample(chapter_paths, k=len(chapter_paths))):
+                    pass
 
         time.sleep(COMSKIP_INTERVAL_SEC)
 
-# MOUNT_POINT 以下の m2ts ファイルを列挙
-def enumerate_paths():
-    return [
+# MOUNT_POINT 以下の ext ファイルを列挙するジェネレータ
+def enumerate_paths(ext):
+    return (
         path
-        for path in Path(MOUNT_POINT).glob("**/*.m2ts")
+        for path in Path(MOUNT_POINT).glob(f"**/*.{ext}")
         if not any(
             regex.match(path.stem)
             for regex in COMSKIP_IGNORE_NAMES
         )
-    ]
+    )
 
 def handle(path):
     # chapters ディレクトリがないなら作る
@@ -81,6 +87,22 @@ def handle(path):
     vdr_path.unlink()
 
     print(f"Success: {path}")
+
+def handle_cleanup(path):
+    # 同じディレクトリに .m2ts があるか確認する
+    m2ts_path = path.with_suffix(".m2ts")
+    if m2ts_path.exists():
+        return
+
+    # 親ディレクトリに .m2ts があるか確認する
+    parent_dir = path.parent
+    if parent_dir.name == "chapters":
+        m2ts_path = parent_dir.parent / m2ts_path.name
+        if m2ts_path.exists():
+            return
+
+    path.unlink()
+    print(f"Delete: {path}")
 
 
 vdr_line_pattern = re.compile(r"^(\d):(\d+):(\d+).(\d+) (start|end)$")
