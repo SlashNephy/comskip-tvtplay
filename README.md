@@ -31,5 +31,6 @@ services:
     environment:
       MOUNT_POINT: /mnt
       COMSKIP_PROCESSES: 4
-      COMSKIP_COMMAND: comskip --ini=/comskip.ini --ts
+      # Comskip を起動するコマンドラインを変更したい場合
+      # COMSKIP_COMMAND: comskip --ini=/comskip.ini --ts
 ```

@@ -17,7 +17,7 @@ def main():
     while True:
         with concurrent.futures.ProcessPoolExecutor(max_workers=COMSKIP_PROCESSES) as executor:
             paths = list(enumerate_paths())
-            for _ in executor.map(handle_wrap, random.sample(paths, k=len(paths))):
+            for _ in executor.map(handle, random.sample(paths, k=len(paths))):
                 pass
 
         time.sleep(10)
@@ -25,13 +25,6 @@ def main():
 # MOUNT_POINT 以下の m2ts ファイルを列挙
 def enumerate_paths():
     return Path(MOUNT_POINT).glob("**/*.m2ts")
-
-def handle_wrap(path):
-    try:
-        handle(path)
-    except:
-        print(f"Failed: {path}")
-        traceback.print_exc()
 
 def handle(path):
     # chapters ディレクトリがないなら作る
@@ -78,6 +71,7 @@ def handle(path):
 
     print(f"Success: {path}")
 
+
 vdr_line_pattern = re.compile(r"^(\d):(\d+):(\d+).(\d+) (start|end)$")
 
 def extract_cm_ranges(vdr):
@@ -109,6 +103,7 @@ def create_chapters(vdr):
 
     chapters.append("c")
     return "-".join(chapters)
+
 
 if __name__ == "__main__":
     main()
