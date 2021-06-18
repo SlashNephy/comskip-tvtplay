@@ -13,6 +13,7 @@ MOUNT_POINT = os.getenv("MOUNT_POINT")
 COMSKIP_PROCESSES = int(os.getenv("COMSKIP_PROCESSES"))
 COMSKIP_COMMAND = os.getenv("COMSKIP_COMMAND")
 COMSKIP_IGNORE_NAMES = [re.compile(v) for k, v in os.environ.items() if k.startswith("COMSKIP_IGNORE_NAME")]
+COMSKIP_INTERVAL_SEC = int(os.getenv("COMSKIP_INTERVAL_SEC"))
 
 re.compile("").match
 
@@ -23,7 +24,7 @@ def main():
             for _ in executor.map(handle, random.sample(paths, k=len(paths))):
                 pass
 
-        time.sleep(10)
+        time.sleep(COMSKIP_INTERVAL_SEC)
 
 # MOUNT_POINT 以下の m2ts ファイルを列挙
 def enumerate_paths():
