@@ -38,7 +38,7 @@ def enumerate_paths(ext):
         if not any(
             regex.search(path.stem)
             for regex in COMSKIP_IGNORE_NAMES
-        )
+        ) and not path.is_symlink()
     )
 
 def handle(path):
