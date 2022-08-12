@@ -1,4 +1,5 @@
 # comskip-tvtplay
+
 🎬 Tiny tool to create TvtPlay-compatible CM chapter files automatically
 
 [xtne6f/TvtPlay](https://github.com/xtne6f/TvtPlay) 対応の CM スキップチャプターを作るスクリプトです。
@@ -11,8 +12,6 @@ Comskip の並列数やコマンドラインは `COMSKIP_PROCESSES` および `C
 
 comskip.ini には最低限 `output_vdr=1` が必要です。comskip-tvtplay は生成される .vdr ファイルを使用します。
 
-[![Docker Image Size (tag)](https://img.shields.io/docker/image-size/slashnephy/comskip-tvtplay/latest)](https://hub.docker.com/r/slashnephy/comskip-tvtplay)
-
 `docker-compose.yml`
 
 ```yaml
@@ -21,7 +20,7 @@ version: '3.8'
 services:
   comskip-tvtplay:
     container_name: comskip-tvtplay
-    image: slashnephy/comskip-tvtplay:latest
+    image: ghcr.io/slashnephy/comskip-tvtplay:master
     restart: always
     volumes:
       - /mnt:/mnt

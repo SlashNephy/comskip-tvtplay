@@ -4,10 +4,8 @@ import random
 import re
 import shlex
 import time
-import traceback
 from pathlib import Path
 from subprocess import Popen
-
 
 MOUNT_POINT = os.getenv("MOUNT_POINT")
 COMSKIP_PROCESSES = int(os.getenv("COMSKIP_PROCESSES"))
@@ -58,7 +56,7 @@ def handle(path):
     if size != path.stat().st_size:
         return
 
-    # comskip を実行
+    # Comskip を実行
     commands = shlex.split(COMSKIP_COMMAND)
     commands.append(str(path.resolve()))
     print(f"Popen: {commands}")
@@ -121,7 +119,7 @@ def extract_cm_ranges(vdr):
         if flag == "start":
             last_ms = ms
         elif flag == "end":
-            yield (last_ms, ms)
+            yield last_ms, ms
         else:
             raise Exception(f"Unknown flag: {flag}")
 
@@ -134,7 +132,6 @@ def create_chapters(vdr):
 
     chapters.append("c")
     return "-".join(chapters)
-
 
 if __name__ == "__main__":
     main()
