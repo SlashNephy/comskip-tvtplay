@@ -1,4 +1,4 @@
-FROM ghcr.io/slashnephy/comskip:sha-26d5d2b AS comskip
+FROM ghcr.io/slashnephy/comskip:sha-26d5d2b@sha256:a9ed30b8c23bb0304b47b06c3394b318ff7bc9337bb3c6e1f88166dfc64b650a AS comskip
 
 RUN apt-get update \
     && apt-get full-upgrade -y \
