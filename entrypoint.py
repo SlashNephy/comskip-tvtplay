@@ -11,7 +11,7 @@ MOUNT_POINT = os.getenv("MOUNT_POINT")
 COMSKIP_PROCESSES = int(os.getenv("COMSKIP_PROCESSES"))
 COMSKIP_COMMAND = os.getenv("COMSKIP_COMMAND")
 COMSKIP_IGNORE_NAMES = [re.compile(v) for k, v in os.environ.items() if k.startswith("COMSKIP_IGNORE_NAME")]
-COMSKIP_INTERVAL_SEC = int(os.getenv("COMSKIP_INTERVAL_SEC"))
+COMSKIP_INTERVAL_SEC = int(os.getenv("COMSKIP_INTERVAL_SEC", 0))
 COMSKIP_CLEANUP = bool(int(os.getenv("COMSKIP_CLEANUP")))
 
 def main():
