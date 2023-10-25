@@ -26,6 +26,9 @@ def main():
                 for _ in executor.map(handle_cleanup, random.sample(chapter_paths, k=len(chapter_paths))):
                     pass
 
+        if not COMSKIP_INTERVAL_SEC:
+            break
+
         time.sleep(COMSKIP_INTERVAL_SEC)
 
 # MOUNT_POINT 以下の ext ファイルを列挙するジェネレータ
