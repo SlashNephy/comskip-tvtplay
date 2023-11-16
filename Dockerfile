@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1
+# syntax=docker/dockerfile:1@sha256:ac85f380a63b13dfcefa89046420e1781752bab202122f8f50032edf31be0021
 
 FROM ghcr.io/slashnephy/comskip:master@sha256:01626a1dd4d762f537d5eb493d02b0a02e0d89b962dbb6fb0af85aad899cb5e3
 
