@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1@sha256:b6afd42430b15f2d2a4c5a02b919e98a525b785b1aaff16747d2f623364e39b6
 
-FROM ghcr.io/slashnephy/comskip:master@sha256:a099c7f85ea0dc25d87b846b6cd71db5512b2ada5fc280da3fc9839e087d48fb
+FROM ghcr.io/slashnephy/comskip:master@sha256:ae36087ca0c91cd709969615893b32abf8286ea2b6e51ceb45579b06cf07fb64
 
 RUN <<EOF
     apt-get update
